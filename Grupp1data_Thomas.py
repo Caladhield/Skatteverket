@@ -5,7 +5,12 @@ import pandas as pd
 def fetch_data(year):
     url = f"https://skatteverket.entryscape.net/rowstore/dataset/c67b320b-ffee-4876-b073-dd9236cd2a99?år={year}"
     
-    group_ett_kommuner = ["Botkyrka", "Danderyd", "Ekerö", "Haninge", "Huddinge"]
+    group_ett_kommuner = ["BOTKYRKA","DANDERYD","EKERÖ","HANINGE","HUDDINGE",
+                        "JÄRFÄLLA","LIDINGÖ","NACKA","NORRTÄLJE","NYKVARN",
+                        "NYNÄSHAMN","SALEM","SIGTUNA","SOLLENTUNA","SOLNA",
+                        "STOCKHOLM","SUNDBYBERG","SÖDERTÄLJE","TYRESÖ","TÄBY",
+                        "UPPLANDS VÄSBY","UPPLANDS-BRO","VALLENTUNA","VAXHOLM","VÄRMDÖ",
+                        "ÖSTERÅKER"]
 
     try:
         response = requests.get(url)
@@ -20,7 +25,7 @@ def fetch_data(year):
 
                 for result in results:
                         kommunal_skatt = result["kommunal-skatt"]
-                        kommun = result["kommun"].capitalize()
+                        kommun = result["kommun"].upper()
                         
                         if kommun in group_ett_kommuner:
                             exceldata = {"Year": year, 
