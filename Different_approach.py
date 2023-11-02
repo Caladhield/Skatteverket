@@ -49,6 +49,12 @@ if all_data:
     df.drop_duplicates(subset=["Year", "Kommun"], keep="first", inplace=True)
     df = df.pivot(index="Kommun", columns="Year", values="Kommunal Skatt")
     df.columns = [f"{year}" for year in df.columns]
+    
+    alla_kommuner = df.index.tolist()
+    df["Kommun"] = alla_kommuner
+    
+    df = df[["Kommun"] + [col for col in df.columns if col != "Kommun"]]
+    
     df.to_excel("all_kommunal_skatt.xlsx", index=False)
     print("Data saved to all_kommunal_skatt.xlsx")
 else:
